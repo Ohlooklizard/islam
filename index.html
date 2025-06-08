@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puzzle7</title>
+  <style>
+    body {
+      margin: 0;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .main-image {
+      max-width: 80%;
+      height: auto;
+    }
+
+    .top-right-button {
+      position: absolute;
+      top: 150px;
+      right: 30px;
+      cursor: pointer;
+      width: 80px;
+      height: 80px;
+    }
+
+    .bottom-right-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Bucket audio -->
+  <audio id="bucket-audio" src="thisisabucket.mp3"></audio>
+
+  <!-- GLaDOS audios -->
+  <audio id="glados-audio1" src="gladoshelp1.mp3"></audio>
+  <audio id="glados-audio2" src="gladoshelp2.mp3"></audio>
+
+  <!-- Hidden in plain sight
+  -->
+
+  <!-- Top-right Bucket button -->
+  <img 
+    id="bucket-button"
+    src="bucket.jpg"
+    alt="Bucket Button"
+    class="top-right-button"
+    onclick="toggleBucket()"
+  />
+
+  <!-- Bottom-right GLaDOS button -->
+  <img 
+    id="glados-button"
+    src="gladosbutton.jpg"
+    alt="GLaDOS Help"
+    class="bottom-right-button"
+    onclick="toggleGladosAudio()"
+  />
+
+  <!-- Main image in center -->
+  <img src="blank.jpg" alt="Main Image" class="main-image">
+
+  <!-- Scripts -->
+  <script>
+    // Bucket toggle
+    let isBucketHat = false;
+    function toggleBucket() {
+      const img = document.getElementById("bucket-button");
+      const audio = document.getElementById("bucket-audio");
+
+      img.src = isBucketHat ? "bucket.jpg" : "buckethat.jpg";
+      isBucketHat = !isBucketHat;
+
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    // GLaDOS toggle
+    let playFirstGlados = true;
+    function toggleGladosAudio() {
+      const audio1 = document.getElementById("glados-audio1");
+      const audio2 = document.getElementById("glados-audio2");
+
+      // Stop both if currently playing
+      audio1.pause();
+      audio1.currentTime = 0;
+      audio2.pause();
+      audio2.currentTime = 0;
+
+      if (playFirstGlados) {
+        audio1.play();
+      } else {
+        audio2.play();
+      }
+
+      playFirstGlados = !playFirstGlados;
+    }
+  </script>
+</body>
+</html>
